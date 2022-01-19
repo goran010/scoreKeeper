@@ -17,10 +17,11 @@ addFirstPlayer.addEventListener("click", () => {
     if (i < maxI + 1 && win === false) {
         scoreFirstPlayer.innerHTML = `${i++}`;
     }
-    if (i === maxI + 1 && win===false) {
+    if (i === maxI + 1 && win === false) {
         scoreFirstPlayer.classList.toggle("green")
         scoreSecondPlayer.classList.toggle("red")
         win = true;
+        player = 1;
     }
 })
 addSecondPlayer.addEventListener("click", () => {
@@ -31,6 +32,7 @@ addSecondPlayer.addEventListener("click", () => {
         scoreFirstPlayer.classList.toggle("red")
         scoreSecondPlayer.classList.toggle("green")
         win = true;
+        player = 2;
     }
 })
 reset.addEventListener("click", () => {
@@ -38,7 +40,14 @@ reset.addEventListener("click", () => {
     scoreSecondPlayer.innerHTML = 0;
     i = 0
     j = 0
-    scoreFirstPlayer.classList.toggle("green")
-    scoreSecondPlayer.classList.toggle("red")
+    if (player === 1) {
+        scoreFirstPlayer.classList.toggle("green")
+        scoreSecondPlayer.classList.toggle("red")
+    }
+    if (player === 2) {
+        scoreFirstPlayer.classList.toggle("red")
+        scoreSecondPlayer.classList.toggle("green")
+    }
+    player = 3;
     win = false;
 })
