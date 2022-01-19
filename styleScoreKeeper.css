@@ -1,0 +1,48 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+}
+img{
+    width: 55vh;
+}
+p{
+    font-size: 3rem;
+}
+h2{
+  margin-top: 0rem;
+}
+button{
+    margin:0.3rem;
+    padding: 0.6rem 0.8rem ;
+    border: none;
+    border-radius: 0.2rem;
+    font-size: 1.2rem;
+}
+button:nth-of-type(1){
+    background-color: rgb(73, 156, 117);
+}
+button:nth-of-type(2){
+    background-color: rgb(41, 121, 250);
+}
+button:nth-of-type(3){
+    background-color: brown;
+}
+form{
+    display: flex;
+    padding: 1rem;
+    align-items:flex-start;
+    justify-content: flex-start;
+    font-size: 2rem;
+}
+.red{
+    color: red;
+}
+.green{
+    color:green;
+}
+.reset{
+    background-color:grey;
+}
