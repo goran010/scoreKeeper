@@ -1,53 +1,68 @@
-const addFirstPlayer = document.querySelector(".addFirstPlayer")
-const addSecondPlayer = document.querySelector(".addSecondPlayer")
-const scoreFirstPlayer = document.querySelector(".firstScore")
-const scoreSecondPlayer = document.querySelector(".secondScore")
+const p1 = {
+    FirstPlayerBtn: document.querySelector(".addFirstPlayer"),
+    scoreDisplay: document.querySelector(".firstScore"),
+    Score: 1,
+    player: 1,
+    winner: false
+}
+const p2 = {
+    SecondPlayerBtn: document.querySelector(".addSecondPlayer"),
+    scoreDisplay: document.querySelector(".secondScore"),
+    Score: 1,
+    player: 2,
+    winner: false
+}
+
 const reset = document.querySelector(".reset")
 const input = document.querySelector(".input")
-let i = 1;
-let j = 1;
 let maxI = 5;
-let win = false;
+
+function updateScores(object) {
+    if (object.Score < maxI + 1 && p2.winner == false && p1.winner == false) {
+        object.scoreDisplay.innerHTML = `${object.Score++}`;;
+    }
+    if (object.Score === maxI + 1 && p2.winner == false && p1.winner == false) {
+        object.winner = true;
+        toggleClass(object)
+        p1.FirstPlayerBtn.classList.toggle("inactive")
+        p2.SecondPlayerBtn.classList.toggle("inactive")
+    }
+}
+function toggleClass(object) {
+    if (object.player == 1) {
+        p2.scoreDisplay.classList.toggle("red")
+        p1.scoreDisplay.classList.toggle("green")
+    }
+    else {
+        p1.scoreDisplay.classList.toggle("red")
+        p2.scoreDisplay.classList.toggle("green")
+    }
+}
 
 input.addEventListener("input", () => {
     maxI = parseInt(input.value);
 })
-
-addFirstPlayer.addEventListener("click", () => {
-    if (i < maxI + 1 && win === false) {
-        scoreFirstPlayer.innerHTML = `${i++}`;
-    }
-    if (i === maxI + 1 && win === false) {
-        scoreFirstPlayer.classList.toggle("green")
-        scoreSecondPlayer.classList.toggle("red")
-        win = true;
-        player = 1;
-    }
+p1.FirstPlayerBtn.addEventListener("click", () => {
+    updateScores(p1)
 })
-addSecondPlayer.addEventListener("click", () => {
-    if (j < maxI + 1 && win === false) {
-        scoreSecondPlayer.innerHTML = `${j++}`;
-    }
-    if (j === maxI + 1 && win === false) {
-        scoreFirstPlayer.classList.toggle("red")
-        scoreSecondPlayer.classList.toggle("green")
-        win = true;
-        player = 2;
-    }
+p2.SecondPlayerBtn.addEventListener("click", () => {
+    updateScores(p2)
 })
 reset.addEventListener("click", () => {
-    scoreFirstPlayer.innerHTML = 0;
-    scoreSecondPlayer.innerHTML = 0;
-    i = 0
-    j = 0
-    if (player === 1) {
-        scoreFirstPlayer.classList.toggle("green")
-        scoreSecondPlayer.classList.toggle("red")
+    p1.scoreDisplay.innerHTML = 0;
+    p2.scoreDisplay.innerHTML = 0;
+    if (p1.winner === true) {
+        toggleClass(p1)
+        p1.FirstPlayerBtn.classList.toggle("inactive")
+        p2.SecondPlayerBtn.classList.toggle("inactive")
     }
-    if (player === 2) {
-        scoreFirstPlayer.classList.toggle("red")
-        scoreSecondPlayer.classList.toggle("green")
+    if (p2.winner === true) {
+        toggleClass(p2)
+        p1.FirstPlayerBtn.classList.toggle("inactive")
+        p2.SecondPlayerBtn.classList.toggle("inactive")
     }
-    player = 3;
-    win = false;
-})
+    p1.winner = false;
+    p2.winner = false;
+    p1.Score = 0
+    p2.Score = 0
+}) 
